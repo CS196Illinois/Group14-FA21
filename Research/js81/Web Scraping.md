@@ -1,5 +1,3 @@
-# Web Scraping Libraries Research
-
 # What I found
 LXML
 	• Fast at scraping large documents
