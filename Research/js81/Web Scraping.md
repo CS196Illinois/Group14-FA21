@@ -1,6 +1,6 @@
 # Web Scraping Libraries Research
 
-What I found
+# What I found
 LXML
 	• Fast at scraping large documents
 	• Well documented
@@ -41,7 +41,7 @@ LXML: https://stackabuse.com/introduction-to-the-python-lxml-library/
 LXML vs Beautiful Soup: https://stackoverflow.com/questions/4967103/beautifulsoup-and-lxml-html-what-to-prefer
 Basic flask tutorial: https://www.youtube.com/watch?v=Z1RJmh_OqeA
 
-How this can be used in the context of the project
+# How this can be used in the context of the project
 Overall I think that the top three web scraping libraries we could use would be 1. LXML 2. Scrappy 3. Beautiful Soup/Requests. LXML is fast at scraping 
 large documents which I think can be useful since we might be scraping various websites. It also has a soupparser so we can use Beautiful Soup's functionality
 if needed. Scrappy is also good for big scale webscraping and is memory efficient. Beautiful Soup/Requests is good for beginners and might be easier for us to learn.
