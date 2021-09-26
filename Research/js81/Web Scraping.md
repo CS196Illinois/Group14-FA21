@@ -33,13 +33,13 @@ Urlib
 Selenium
 	• Good for beginners but also powerful
 	• Good for a few webpages and the information you need is in JS 
-  • High CPU usage not good for big projects
+  	• High CPU usage not good for big projects
 
 List of Links: 
-Overview of libraries: https://towardsdatascience.com/choose-the-best-python-web-scraping-library-for-your-application-91a68bc81c4f
-LXML: https://stackabuse.com/introduction-to-the-python-lxml-library/
-LXML vs Beautiful Soup: https://stackoverflow.com/questions/4967103/beautifulsoup-and-lxml-html-what-to-prefer
-Basic flask tutorial: https://www.youtube.com/watch?v=Z1RJmh_OqeA
+- Overview of libraries: https://towardsdatascience.com/choose-the-best-python-web-scraping-library-for-your-application-91a68bc81c4f
+- LXML: https://stackabuse.com/introduction-to-the-python-lxml-library/
+- LXML vs Beautiful Soup: https://stackoverflow.com/questions/4967103/beautifulsoup-and-lxml-html-what-to-prefer
+- Basic flask tutorial: https://www.youtube.com/watch?v=Z1RJmh_OqeA
 
 # How this can be used in the context of the project
 Overall I think that the top three web scraping libraries we could use would be 1. LXML 2. Scrappy 3. Beautiful Soup/Requests. LXML is fast at scraping 
