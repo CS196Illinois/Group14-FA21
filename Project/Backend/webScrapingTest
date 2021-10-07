@@ -1,0 +1,9 @@
+from bs4 import BeautifulSoup 
+import urllib.request
+
+url = "https://www.amazon.com/Newest-Lenovo-Ideapad-Graphics-Accessories/dp/B0991XPBB8/ref=sr_1_1_sspa?dchild=1&keywords=laptop&qid=1633474191&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEyWUkyNE1ZVUZWUk8yJmVuY3J5cHRlZElkPUEwMzc1Mjk3MzMwVEs2T0VLQ0FEUSZlbmNyeXB0ZWRBZElkPUEwMjA3MTUxQUVUWTlEM1FRMjkyJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ=="
+sauce = urllib.request.urlopen(url).read()
+
+soup = bs4.BeautifulSoup(sauce, "html.parser")
+
+print(soup)
