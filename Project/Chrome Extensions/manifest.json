@@ -1,0 +1,15 @@
+{
+    "name": "Amazon Top 5",
+    "description": "Gives you top 5 amazon results",
+    "manifest_version": 3,
+    "version": "1.0",
+    "action": {
+        "default_icon": "/Logos/LogoGrayMode.png"
+    },
+    
+    "omnibox": {"keyword": "am"},
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": ["activeTab"]
+}
