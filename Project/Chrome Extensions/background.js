@@ -1,7 +1,7 @@
 //this event is fired when the user puts keyword into search bar.
 chrome.omnibox.onInputEntered.addListener((text) => {
     openAmazonURLOnCurrentTab(text)
-    openTop5Links(text)
+    //openTop5Links(text)
 });
 
 //opens up amazon link with the search as the text input

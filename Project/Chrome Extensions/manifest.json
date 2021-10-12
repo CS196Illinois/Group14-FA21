@@ -4,7 +4,8 @@
     "manifest_version": 3,
     "version": "1.0",
     "action": {
-        "default_icon": "/Logos/LogoGrayMode.png"
+        "default_icon": "/Logos/LogoGrayMode.png",
+        "default_popup": "popup.html"
     },
     
     "omnibox": {"keyword": "am"},
