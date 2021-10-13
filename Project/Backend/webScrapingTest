@@ -1,9 +1,43 @@
-from bs4 import BeautifulSoup 
 import urllib.request
+from bs4 import BeautifulSoup
+import requests
 
-url = "https://www.amazon.com/Newest-Lenovo-Ideapad-Graphics-Accessories/dp/B0991XPBB8/ref=sr_1_1_sspa?dchild=1&keywords=laptop&qid=1633474191&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEyWUkyNE1ZVUZWUk8yJmVuY3J5cHRlZElkPUEwMzc1Mjk3MzMwVEs2T0VLQ0FEUSZlbmNyeXB0ZWRBZElkPUEwMjA3MTUxQUVUWTlEM1FRMjkyJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ=="
-sauce = urllib.request.urlopen(url).read()
 
-soup = bs4.BeautifulSoup(sauce, "html.parser")
+amazon_url = "https://www.amazon.com/s?k=ultrawide+monitor&ref=nb_sb_noss_2"
+target_url = "https://www.target.com/s?searchTerm=bar+soap"
+walgreens_url = "https://www.walgreens.com/search/results.jsp?Ntt=pencil"
+headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)AppleWebKit/605.1.15 (KHTML, like Gecko)Version/12.1.1 Safari/605.1.15'}
+sauce =  urllib.request.urlopen(walgreens_url).read()
+soup = BeautifulSoup(sauce, 'html.parser')
 
-print(soup)
+
+def extract_record(item):
+    # Extract and records data of a single item
+
+    try :
+        # price
+        price_parent = item.find('span' , 'product__price font__sixteen color__text-red')
+        price = price_parent.find('span', 'sr-only').text
+    except AttributeError:
+        try :
+            # price
+            price_parent = item.find('span' , 'product__price font__sixteen wag-inline-txt')
+            price = price_parent.find('span', 'sr-only').text
+        except AttributeError:
+            return
+    return price
+
+
+# Array of items and price
+records = []
+results = soup.find_all('div',{'class': 'item card card__product'})
+
+for item in results:
+    record = extract_record(item)
+    if(record):
+        records.append(record)
+
+
+print (records)
+
+
