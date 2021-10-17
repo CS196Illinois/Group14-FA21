@@ -37,7 +37,16 @@ for item in results:
     if(record):
         records.append(record)
 
+def cheapest_five(records):
+    # Return cheapest five prices from list of prices passed in as parameter
+    cheapest = []
+    records_num_sort = []
+    for item in records:
+        records_num_sort.append(float(item[1:]))
+    records_num_sort.sort()
+    for i in range(5):
+        cheapest.append(records_num_sort[i])
+    return cheapest
 
 print (records)
-
-
+print (cheapest_five(records))
