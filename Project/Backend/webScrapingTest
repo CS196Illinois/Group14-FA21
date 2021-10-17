@@ -1,6 +1,7 @@
 import urllib.request
 from bs4 import BeautifulSoup
 import requests
+import pandas as pd
 
 
 amazon_url = "https://www.amazon.com/s?k=ultrawide+monitor&ref=nb_sb_noss_2"
@@ -11,7 +12,7 @@ sauce =  urllib.request.urlopen(walgreens_url).read()
 soup = BeautifulSoup(sauce, 'html.parser')
 
 
-def extract_record(item):
+def extract_price(item):
     # Extract and records data of a single item
 
     try :
@@ -27,26 +28,43 @@ def extract_record(item):
             return
     return price
 
+def extract_title(item):
+    # Extract and records title of a single item
+    try :
+        # price
+        title_parent = item.find('div', class_= 'product__title font__fourteen')
+        title = title_parent.find('strong', class_='description').text.strip()
+    except AttributeError:
+        return
+    return title
 
-# Array of items and price
+
+# Array of prices as floats
 records = []
 results = soup.find_all('div',{'class': 'item card card__product'})
 
 for item in results:
-    record = extract_record(item)
+    record = extract_price(item)
     if(record):
         records.append(record)
 
-def cheapest_five(records):
-    # Return cheapest five prices from list of prices passed in as parameter
-    cheapest = []
-    records_num_sort = []
-    for item in records:
-        records_num_sort.append(float(item[1:]))
-    records_num_sort.sort()
-    for i in range(5):
-        cheapest.append(records_num_sort[i])
-    return cheapest
+records_float = []
+for item in records:
+    records_float.append(float(item[1:]))
 
-print (records)
-print (cheapest_five(records))
+# Array of all titles 
+titles = []
+for item in results:
+    title = extract_title(item)
+    if(title):
+        titles.append(title)
+
+def cheapest_five(prices, titles):
+    # Return cheapest five prices from list of prices passed in as parameter
+    df = pd.DataFrame(titles)
+    df["price"] = prices
+    df.rename(columns = {0 : "name", "price" : "price"}, inplace=True)
+    df = df.sort_values(by='price')
+    return df
+
+print(cheapest_five(records_float,titles))
