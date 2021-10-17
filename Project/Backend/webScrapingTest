@@ -65,6 +65,7 @@ def cheapest_five(prices, titles):
     df["price"] = prices
     df.rename(columns = {0 : "name", "price" : "price"}, inplace=True)
     df = df.sort_values(by='price')
-    return df
+    return df.head(5)
 
 print(cheapest_five(records_float,titles))
+
