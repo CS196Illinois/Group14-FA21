@@ -1,6 +1,6 @@
 {
-    "name": "Amazon Top 5",
-    "description": "Gives you top 5 amazon results",
+    "name": "Low 5",
+    "description": "Gives you top 5 results for any product!",
     "manifest_version": 3,
     "version": "1.0",
     "action": {
@@ -12,5 +12,5 @@
     "background": {
         "service_worker": "background.js"
     },
-    "permissions": ["activeTab"]
+    "permissions": ["activeTab", "<all_urls>"]
 }

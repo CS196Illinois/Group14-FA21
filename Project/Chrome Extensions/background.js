@@ -1,7 +1,7 @@
 //this event is fired when the user puts keyword into search bar.
-chrome.omnibox.onInputEntered.addListener((text) => {
+chrome.omnibox.onInputEntered.addListener(async(text) => {
     openAmazonURLOnCurrentTab(text)
-    //openTop5Links(text)
+
 });
 
 //opens up amazon link with the search as the text input
@@ -11,7 +11,7 @@ function openAmazonURLOnCurrentTab(text) {
         var tab = tabs[0];
         chrome.tabs.update(tab.id, {url: amazonURL});
     });
-    console.log(amazonURL);
+    console.log("url:" + amazonURL);
 }
 
 //currently this opens up an html with 5 random links

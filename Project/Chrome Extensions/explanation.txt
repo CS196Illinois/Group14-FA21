@@ -1,6 +1,0 @@
-so far this is what the extension does:
-- has the beautiful ms paint logo we created
-- if you type "am" into search bar, then press tab it should activate the extension
-- while activated, search anything product or thing u want e.g. (soap, chair, pencils)
-- the extension will direct the current tab to the amazon url with that searched product
-- it will also open up a html with 5 links(currently random links, later should be top 5 links of the product)
