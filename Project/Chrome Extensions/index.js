@@ -1,53 +1,26 @@
-/*
-import axios from 'axios';
-const axios = require('axios').default;
-const errors = document.getElementById("errors");
-const loading = document.getElementById("loading");
-const first = document.getElementById("first");
-const second = document.getElementById("second");
-const third = document.getElementById("third");
-const fourth = document.getElementById("fourth");
-const fifth = document.getElementById("fifth");
-*/
+// import axios from 'axios';
+// const axios = require('axios').default;
 
-// could change errors.value and loading.value to empty here
-
-//const productName = document.getElementById("product-name").value;
-
-/*
-const find5Links = async productName => {
-    loading.value = "loading..."
-    errors.value = "";
+async function handleSearch(event) {
+    const productName = document.getElementById("product-name").textContent;
+    const loading = document.getElementById("loading")
+    const errors = document.getElementById("errors");
+    loading.textContent = "loading..."
+    errors.textContent = "";
     try {
         //const response = await axios.get(`localhost:3000/multi/${productName}`);
-        loading.value = "";
-        first.value = "test";
-        second.value = "hi"
-        third.value = "random"
-        fourth.value = "hello"
-        fifth.value = "bye bye"
+        loading.textContent = "";
+        document.getElementById("first").textContent = "first link";
+        document.getElementById("second").textContent = "second link";
+        document.getElementById("third").textContent = "third link";
+        document.getElementById("fourth").textContent = "fourth link";
+        document.getElementById("fifth").textContent = "fifth link";
     }
     catch (error) {
-        loading.value = "";
-        errors.value = "We have no data for the product you have requested.";
+        loading.textContent = "";
+        errors.textContent = "We have no data for the product you have requested.";
     }
-};
-
-const handleSubmit = async e => {
-    e.preventDefault();
-    find5Links(productName);
-    console.log("product name: " + productName);
-};
-*/
-
-function handleSearch() {
-    const productName = document.getElementById("product-name").value;
-    document.getElementById("first").value = "test";
-    document.getElementById("second").textContent = "hi";
-    document.getElementById("third").textContent = "random";
-    document.getElementById("fourth").textContent = "hello";
-    document.getElementById("fifth").textContent = "bye bye";
 }
 
-document.getElementById("bttn").addEventListener("click", handleSearch());
-//<script src="index.js" type = "text/javascript" /></script>
+var b = document.getElementById("bttn");
+b.addEventListener("click", handleSearch, false);
