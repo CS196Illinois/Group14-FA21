@@ -1,6 +1,4 @@
-// import axios from 'axios';
-// const axios = require('axios').default;
-
+//function that will make the call to backend and update the view
 async function handleSearch(event) {
     const productName = document.getElementById("product-name").textContent;
     const loading = document.getElementById("loading")
@@ -8,7 +6,8 @@ async function handleSearch(event) {
     loading.textContent = "loading..."
     errors.textContent = "";
     try {
-        //const response = await axios.get(`localhost:3000/multi/${productName}`);
+        const response = await fetch(`localhost:3000/multi/${productName}`);
+        const jsonResponse = await response.json();
         loading.textContent = "";
         document.getElementById("first").textContent = "first link";
         document.getElementById("second").textContent = "second link";
@@ -22,5 +21,6 @@ async function handleSearch(event) {
     }
 }
 
+//adds an event listener to the button that will call the handleSearch function
 var b = document.getElementById("bttn");
 b.addEventListener("click", handleSearch, false);
