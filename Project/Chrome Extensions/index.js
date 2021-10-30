@@ -6,7 +6,7 @@ async function handleSearch(event) {
     loading.textContent = "loading..."
     errors.textContent = "";
     try {
-        const response = await fetch(`localhost:3000/multi/${productName}`);
+        const response = await fetch(`https://127.0.0.1:3000/multi/${productName}`);
         const jsonResponse = await response.json();
         loading.textContent = "";
         document.getElementById("first").textContent = "first link";
