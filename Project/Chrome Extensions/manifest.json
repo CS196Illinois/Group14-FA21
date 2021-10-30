@@ -1,10 +1,10 @@
 {
-    "name": "Amazon Top 5",
-    "description": "Gives you top 5 amazon results",
+    "name": "Low 5",
+    "description": "Gives you top 5 results for any product!",
     "manifest_version": 3,
     "version": "1.0",
     "action": {
-        "default_icon": "/Logos/LogoGrayMode.png",
+        "default_icon": "/Logos/LogoLightMode(non-square).png",
         "default_popup": "popup.html"
     },
     
