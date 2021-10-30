@@ -11,9 +11,8 @@ def get_data():
     search_req=request.args.get('q')
     return _webscrapping(search_req)
 
-walgreens_url = "https://www.walgreens.com/search/results.jsp?Ntt=pencils"
     headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)AppleWebKit/605.1.15 (KHTML, like Gecko)Version/12.1.1 Safari/605.1.15'}
-    sauce =  urllib.request.urlopen(walgreens_url).read()
+    sauce =  urllib.request.urlopen(url).read()
     soup = BeautifulSoup(sauce, 'html.parser')
 
     # Extract and records data of a single item
