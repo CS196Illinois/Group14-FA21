@@ -3,14 +3,17 @@ import requests
 from bs4 import BeautifulSoup
 import urllib.request
 import pandas as pd
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)
+@app.route('/search/<keyword>', methods=['GET'])
+def get_data(keyword):
+    url = "https://www.walgreens.com/search/results.jsp?Ntt=" + keyword
+    return _webscrapping(url)
 
-@app.route('/search/', methods=['GET'])
-def get_data():
-    search_req=request.args.get('q')
-    return _webscrapping(search_req)
-
+def _webscrapping(url):
     headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)AppleWebKit/605.1.15 (KHTML, like Gecko)Version/12.1.1 Safari/605.1.15'}
     sauce =  urllib.request.urlopen(url).read()
     soup = BeautifulSoup(sauce, 'html.parser')
@@ -69,7 +72,8 @@ def get_data():
         df["price"] = prices
         df.rename(columns = {0 : "name", "price" : "price"}, inplace=True)
         df = df.sort_values(by='price')
-        return df.head(5)
+        d = df.head(5).to_dict()
+        return d
     return cheapest_five()
 
 if __name__ == '__main__':
