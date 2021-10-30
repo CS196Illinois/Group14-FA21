@@ -16,6 +16,7 @@ function openAmazonURLOnCurrentTab(text) {
 
 //currently this opens up an html with 5 random links
 //but in future this should hold the top 5 links
+/*
 function openTop5Links(text) {
     const productName = text;
     try {
@@ -27,4 +28,5 @@ function openTop5Links(text) {
         chrome.tabs.create({url: 'apple.com'});
     }
 }
+*/
 
