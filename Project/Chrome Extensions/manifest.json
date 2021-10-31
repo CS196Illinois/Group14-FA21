@@ -8,7 +8,7 @@
         "default_popup": "popup.html"
     },
     
-    "omnibox": {"keyword": "wa"},
+    "omnibox": {"keyword": "low"},
     "background": {
         "service_worker": "background.js"
     },
