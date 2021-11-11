@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import pandas as pd
+import json
 
 
 app = Flask(__name__)
@@ -16,6 +17,7 @@ def get_data(keyword):
 
     #add page query placeholder
     url += '&page{}'
+    return _webscrapping(url)
 
 def _webscrapping(url):
     def extract_record(item):
@@ -34,15 +36,8 @@ def _webscrapping(url):
         except AttributeError:
             return
 
-        try:
-            #rank and rating
-            rating = item.i.text
-            review_count = item.find('span', {'class': 'a-size-base', 'dir' : 'auto'}).text
-        except AttributeError:
-            rating = ""
-            review_count = ""
         
-        result = (description, price, rating, review_count, url)
+        result = (description, price, url)
         
         return result
 
@@ -63,10 +58,10 @@ def _webscrapping(url):
         driver.close()
 
         df = pd.DataFrame(records)
-        df.rename(columns = {0 : "Description", 1 : "Price",  2 : "Rating", 3 : "ReviewCount", 4 : "Url"}, inplace=True)
+        df.rename(columns = {0 : "Description", 1 : "Price",  2 : "Url"}, inplace=True)
         df = df.sort_values(by='Price')
-        pd.set_option("display.max_rows", None, "display.max_columns", None)
-        d =  d = df.head(5).to_dict()
+        d =  df.head(5).to_dict()
+        d = json.dumps(d, sort_keys=True , indent=4)
         return d
     return main(url)
      
