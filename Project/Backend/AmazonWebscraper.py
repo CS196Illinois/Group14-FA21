@@ -1,97 +1,75 @@
 from flask import Flask, jsonify, request
-import requests
 from bs4 import BeautifulSoup
-import urllib.request
+from selenium import webdriver
 import pandas as pd
-from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app)
+
 @app.route('/search/<keyword>', methods=['GET'])
 def get_data(keyword):
-    url = "https://www.amazon.com/s?k=" + keyword
-    return _webscrapping(url)
+    template = "https://www.amazon.com/s?k={}&ref=nb_sb_noss_2"
+    keyword = keyword.replace(' ', "+")
+
+    # add term to query url
+    url = template.format(keyword)
+
+    #add page query placeholder
+    url += '&page{}'
 
 def _webscrapping(url):
-    headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5)AppleWebKit/605.1.15 (KHTML, like Gecko)Version/12.1.1 Safari/605.1.15'}
-    sauce =  urllib.request.urlopen(url).read()
-    soup = BeautifulSoup(sauce, 'html.parser')
+    def extract_record(item):
+        #description and url
+        atag = item.h2.a
+        description = atag.text.strip()
+        url = 'https://www.amazon.com' + atag.get('href')
 
-    # Extract and records data of a single item
-    def extract_price(item):
-        try :
-            price_parent = item.find('span' , 'a-price')
+        try:
+            #price
+            price_parent = item.find('span',  'a-price')
             price = price_parent.find('span', 'a-offscreen').text
+            price = price.replace("$","")
+            price = price.replace(",","")
+            price = float(price)
         except AttributeError:
             return
-        return price
 
-    # Extract and records title of a single item
-    def extract_url(item):
-        try :
-            # title
-            atag = item.h2.a
-            url = "https://www.amazon.com" + atag.get('href')
-        except AttributeError:
-            return
-        return url
-
-    # Extract and records rating of a single item
-    def extract_rating(item):
-        try :
-            # rating
+        try:
+            #rank and rating
             rating = item.i.text
+            review_count = item.find('span', {'class': 'a-size-base', 'dir' : 'auto'}).text
         except AttributeError:
-            return
-        return rating
+            rating = ""
+            review_count = ""
+        
+        result = (description, price, rating, review_count, url)
+        
+        return result
 
-    # Array of prices as floats
-    def makeArrayofItemsPrice():
+
+    def main(url) :
+        # start up the webdriver
+        driver = webdriver.Chrome(executable_path="/Users/jessica/Downloads/chromedriver")
+
         records = []
-        results = soup.find_all('div',{'data-component-type': 's-search-result'})
-        for item in results:
-            record = extract_price(item)
-            if(record):
-                records.append(record)
-        records_float = []
-        for item in records:
-            records_float.append(float(item[1:]))
-        return records_float
+        for page in range (1,21):
+            driver.get(url.format(page))
+            soup = BeautifulSoup(driver.page_source, 'html.parser')
+            results = soup.find_all('div', {'data-component-type' : 's-search-result'})
+            for item in results:
+                record = extract_record(item)
+                if(record):
+                    records.append(record)
+        driver.close()
 
-    # Array of all titles 
-    def makeArrayofItemsUrl():
-        results = soup.find_all('div',{'data-component-type': 's-search-result'})
-        urls = []
-        for item in results:
-            url = extract_url(item)
-            if(url):
-                url.append(urls)
-        return urls
-    
-    # Array of all ratings 
-    def makeArrayofItemsRating():
-        results = soup.find_all('div',{'data-component-type': 's-search-result'})
-        ratings = []
-        for item in results:
-            rating = extract_rating(item)
-            if(rating):
-                ratings.append(rating)
-        return ratings
-
-    # Return cheapest five prices from list of prices passed in as parameter
-    def cheapest_five():
-        urls = makeArrayofItemsUrl()
-        prices = makeArrayofItemsPrice()
-        ratings = makeArrayofItemsRating()
-        df = pd.DataFrame(urls)
-        df["price"] = prices
-        df["rating"] = ratings
-        df.rename(columns = {0 : "urls", "price" : "price",  "rating" : "rating"}, inplace=True)
-        df = df.sort_values(by='price')
-        d = df.head(5).to_dict()
+        df = pd.DataFrame(records)
+        df.rename(columns = {0 : "Description", 1 : "Price",  2 : "Rating", 3 : "ReviewCount", 4 : "Url"}, inplace=True)
+        df = df.sort_values(by='Price')
+        pd.set_option("display.max_rows", None, "display.max_columns", None)
+        d =  d = df.head(5).to_dict()
         return d
-    return cheapest_five()
+    return main(url)
+     
 
 if __name__ == '__main__':
     app.run(debug=True)
