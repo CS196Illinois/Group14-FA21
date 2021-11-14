@@ -29,7 +29,7 @@ async function handleSearch(event) {
     }
     catch (error) {
         loading.textContent = "";
-        errors.textContent = "We have no data for the product you have requested.";
+        errors.textContent = "\r\nWe have no data for the product you have requested.";
     }
 }
 

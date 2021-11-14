@@ -4,7 +4,7 @@
     "manifest_version": 3,
     "version": "1.0",
     "action": {
-        "default_icon": "/Logos/Revised_Logo.png",
+        "default_icon": "/Images/Revised_Logo.png",
         "default_popup": "popup.html"
     },
     
