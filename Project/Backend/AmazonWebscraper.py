@@ -57,12 +57,12 @@ def _webscrapping(url):
                     records.append(record)
         driver.close()
 
-        df = pd.DataFrame(records)
+         df = pd.DataFrame(records)
         df.rename(columns = {0 : "Description", 1 : "Price",  2 : "Url"}, inplace=True)
         df = df.sort_values(by='Price')
         df = df.head(5).reset_index()
+        df = df.transpose()
         d =  df.to_dict()
-        d = json.dumps(d, sort_keys=True , indent=4)
         return d
     return main(url)
      
