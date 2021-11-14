@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import pandas as pd
-import json
+
 
 
 app = Flask(__name__)
