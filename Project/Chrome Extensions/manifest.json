@@ -4,13 +4,13 @@
     "manifest_version": 3,
     "version": "1.0",
     "action": {
-        "default_icon": "/Logos/LogoLightMode(non-square).png",
+        "default_icon": "/Images/Revised_Logo.png",
         "default_popup": "popup.html"
     },
     
-    "omnibox": {"keyword": "am"},
+    "omnibox": {"keyword": "low"},
     "background": {
         "service_worker": "background.js"
     },
-    "permissions": ["activeTab"]
+    "permissions": ["activeTab", "http://localhost/"]
 }
