@@ -45,6 +45,8 @@ def _webscrapping(url):
     def main(url) :
         # start up the webdriver
         driver = webdriver.Chrome(executable_path="/Users/jessica/Downloads/chromedriver")
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')
 
         records = []
         for page in range (1,21):
