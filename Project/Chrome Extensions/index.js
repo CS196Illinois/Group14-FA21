@@ -21,11 +21,11 @@ async function handleSearch(event) {
         const response = await fetch(`http://127.0.0.1:5000/search/${productName}`);
         const jsonResponse = await response.json();
         loading.textContent = "";
-        first.textContent = jsonResponse.name['0'];
-        second.textContent = jsonResponse.name['1'];
-        third.textContent = jsonResponse.name['2'];
-        fourth.textContent = jsonResponse.name['4'];
-        fifth.textContent = jsonResponse.name['7'];
+        first.textContent = jsonResponse.name['0'] + " $" + jsonResponse.price['0'];
+        second.textContent = jsonResponse.name['1'] + " $" + jsonResponse.price['1'];
+        third.textContent = jsonResponse.name['2'] + " $" + jsonResponse.price['2'];
+        fourth.textContent = jsonResponse.name['3'] + " $" + jsonResponse.price['3'];
+        fifth.textContent = jsonResponse.name['4'] + " $" + jsonResponse.prince['4'];
     }
     catch (error) {
         loading.textContent = "";
